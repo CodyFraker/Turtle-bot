@@ -2,9 +2,9 @@
 {
     using System.Threading.Tasks;
     using Bot.BackgroundServices.Models;
-    using Bot.Variables;
     using DSharpPlus;
     using DSharpPlus.EventArgs;
+    using Serilog;
 
     public class GuildEvents : IEventHandler
     {

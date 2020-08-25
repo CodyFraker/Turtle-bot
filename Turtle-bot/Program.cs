@@ -1,4 +1,4 @@
-﻿namespace Turtle
+﻿namespace Bot
 {
     using System;
     using System.Net.WebSockets;
@@ -113,6 +113,11 @@
             // DB
             services.AddDbContextPool<BotContext>(options => options.UseMySql(new BotContextFactory().ConnectionString));
             services.AddSingleton<BotContextFactory>();
+
+            // General
+            services.AddSingleton(this.dClient)
+                .AddSingleton<BotLog>()
+                .AddSingleton<ActivityManager>();
 
             // Jobs
             services.AddSingleton<JobManager>();

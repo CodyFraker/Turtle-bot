@@ -61,7 +61,7 @@
         public async Task TrySetActivityAsync(string activity, ActivityType activityType = ActivityType.Playing, bool autoReset = false)
         {
             if ((this.dClient.CurrentUser.Presence.Activity.ActivityType == ActivityType.Streaming && activity != DefaultActivity)
-                || Turtle.Program.SocketState != WebSocketState.Open)
+                || Program.SocketState != WebSocketState.Open)
             {
                 return;
             }
