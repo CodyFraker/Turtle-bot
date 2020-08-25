@@ -13,11 +13,9 @@
     public class ActivityManager
     {
         private const int AutoResetMs = 3000;
-        private const string DefaultActivity = "Intruder on Steam!";
+        private const string DefaultActivity = "you buy me a beer.";
 
         private readonly DiscordClient dClient;
-
-        private ulong streamOwnerID = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActivityManager"/> class.
@@ -34,16 +32,8 @@
         /// <returns>Awaitable task.</returns>
         public async Task ClearStreamAsync()
         {
-            this.streamOwnerID = 0;
             await this.ResetActivityAsync().ConfigureAwait(false);
         }
-
-        /// <summary>
-        /// Checks whether a user is the current stream's owner.
-        /// </summary>
-        /// <param name="streamerID">Discord user id.</param>
-        /// <returns>Boolean.</returns>
-        public bool IsStreamOwner(ulong streamerID) => this.streamOwnerID == streamerID;
 
         /// <summary>
         /// Resets Bot's activity to <see cref="DefaultActivity"/>.
@@ -58,14 +48,8 @@
         /// <param name="activityType">Activity type.</param>
         /// <param name="autoReset">Automatically switch back to <see cref="DefaultActivity"/> after <see cref="AutoResetMs"/>.</param>
         /// <returns>Awaitable task.</returns>
-        public async Task TrySetActivityAsync(string activity, ActivityType activityType = ActivityType.Playing, bool autoReset = false)
+        public async Task TrySetActivityAsync(string activity, ActivityType activityType = ActivityType.Watching, bool autoReset = false)
         {
-            if ((this.dClient.CurrentUser.Presence.Activity.ActivityType == ActivityType.Streaming && activity != DefaultActivity)
-                || Program.SocketState != WebSocketState.Open)
-            {
-                return;
-            }
-
             await this.dClient.UpdateStatusAsync(new DiscordActivity
             {
                 ActivityType = activityType,
